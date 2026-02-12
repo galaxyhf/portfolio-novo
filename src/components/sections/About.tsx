@@ -1,0 +1,102 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Github, CheckCircle } from "lucide-react";
+import SectionTitle from "@/components/ui/SectionTitle";
+import GlowButton from "@/components/ui/GlowButton";
+import { personalInfo, aboutText, aboutHighlights } from "@/lib/data";
+
+export default function About() {
+  return (
+    <section id="about" className="py-24 md:py-32 bg-bg-secondary">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+          {/* Coluna esquerda - Texto (60%) */}
+          <div className="lg:col-span-3">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+            >
+              <SectionTitle number="01" label="sobre" title="Sobre mim" />
+            </motion.div>
+
+            <div className="space-y-4 mb-8">
+              {aboutText.map((paragraph, i) => (
+                <motion.p
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="text-text-secondary leading-relaxed"
+                >
+                  {paragraph}
+                </motion.p>
+              ))}
+            </div>
+
+            {/* Highlights */}
+            <motion.ul
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false, amount: 0.3 }}
+              className="space-y-3 mb-8"
+            >
+              {aboutHighlights.map((highlight, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                  className="flex items-center gap-3 text-text-secondary"
+                >
+                  <CheckCircle size={18} className="text-accent flex-shrink-0" />
+                  {highlight}
+                </motion.li>
+              ))}
+            </motion.ul>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ delay: 0.5 }}
+            >
+            </motion.div>
+          </div>
+
+          {/* Coluna direita - Visual (40%) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="lg:col-span-2"
+          >
+            <div className="bg-bg-card/30 border border-border/30 rounded-2xl p-8 flex flex-col items-center">
+              {/* Foto */}
+              <div className="relative mb-6">
+                <img
+                  src="https://picsum.photos/seed/profile/400/400"
+                  alt={`Foto de ${personalInfo.name}`}
+                  className="w-52 h-52 rounded-2xl object-cover"
+                />
+              </div>
+
+              {/* Badge disponível */}
+              <div className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-bg-primary/80 border border-border/30">
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse-green" />
+                <span className="text-sm text-text-primary font-medium">
+                  Disponível para projetos
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

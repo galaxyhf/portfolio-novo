@@ -1,0 +1,149 @@
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail } from "lucide-react";
+import GlowButton from "@/components/ui/GlowButton";
+import { personalInfo } from "@/lib/data";
+
+const roles = ["Desenvolvedor Web", "Frontend Developer"];
+
+function useTypewriter(phrases: string[], typingSpeed = 80, deletingSpeed = 40, pauseTime = 2000) {
+  const [text, setText] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const tick = useCallback(() => {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (!isDeleting) {
+      setText(currentPhrase.substring(0, text.length + 1));
+      if (text.length + 1 === currentPhrase.length) {
+        setTimeout(() => setIsDeleting(true), pauseTime);
+        return;
+      }
+    } else {
+      setText(currentPhrase.substring(0, text.length - 1));
+      if (text.length === 0) {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % phrases.length);
+        return;
+      }
+    }
+  }, [text, phraseIndex, isDeleting, phrases, pauseTime]);
+
+  useEffect(() => {
+    const speed = isDeleting ? deletingSpeed : typingSpeed;
+    const timer = setTimeout(tick, speed);
+    return () => clearTimeout(timer);
+  }, [tick, isDeleting, typingSpeed, deletingSpeed]);
+
+  return text;
+}
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
+};
+
+export default function Hero() {
+  const typedRole = useTypewriter(roles);
+
+  return (
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-bg-primary"
+    >
+      {/* Conteúdo */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.3 }}
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center"
+      >
+        {/* Tag acima */}
+        <motion.div variants={item} className="mb-4">
+          <span className="text-text-secondary text-sm tracking-[0.2em] uppercase font-light">
+            Olá, eu sou
+          </span>
+        </motion.div>
+
+        {/* Nome */}
+        <motion.h1
+          variants={item}
+          className="font-[family-name:var(--font-syne)] font-bold text-[clamp(4rem,12vw,9rem)] leading-[0.9] mb-6 text-text-primary tracking-tight"
+        >
+          {personalInfo.name}
+        </motion.h1>
+
+        {/* Subtítulo/Cargo com Typewriter */}
+        <motion.div
+          variants={item}
+          className="font-[family-name:var(--font-syne)] font-semibold text-[clamp(1.75rem,4vw,3.5rem)] leading-tight mb-8 text-accent min-h-[4rem] flex items-center justify-center"
+        >
+          {typedRole}
+          <span className="typewriter-cursor" />
+        </motion.div>
+
+        {/* Descrição */}
+        <motion.p
+          variants={item}
+          className="text-base md:text-lg text-text-secondary max-w-3xl mx-auto mb-12 leading-relaxed"
+        >
+          Construo sistemas web end-to-end com{" "}
+          <span className="text-text-primary font-semibold">Next.js</span>,{" "}
+          <span className="text-text-primary font-semibold">TypeScript</span> e{" "}
+          <span className="text-text-primary font-semibold">React</span>
+          {" "}— do conceito à entrega em produção.
+        </motion.p>
+
+        {/* Botões */}
+        <motion.div
+          variants={item}
+          className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-16"
+        >
+          <GlowButton variant="primary" href="#contact" className="min-w-[180px]">
+            Contate-me
+          </GlowButton>
+          <GlowButton variant="outline" href="#projects" className="min-w-[180px]">
+            Ver Projetos
+          </GlowButton>
+        </motion.div>
+
+        {/* Social Links */}
+        <motion.div
+          variants={item}
+          className="flex items-center gap-6 justify-center"
+        >
+          {[
+            { icon: <Github size={20} />, href: personalInfo.github, label: "GitHub" },
+            { icon: <Linkedin size={20} />, href: personalInfo.linkedin, label: "LinkedIn" },
+            { icon: <Mail size={20} />, href: `mailto:${personalInfo.email}`, label: "Email" },
+          ].map((social) => (
+            <motion.a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="text-text-secondary hover:text-accent transition-colors duration-300"
+              aria-label={social.label}
+            >
+              {social.icon}
+            </motion.a>
+          ))}
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
