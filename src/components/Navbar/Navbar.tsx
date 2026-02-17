@@ -83,7 +83,7 @@ export default function Navbar() {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className={`relative text-sm transition-colors duration-300 pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 hover:after:w-full ${
+                  className={`relative text-sm transition-colors duration-300 pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 hover:after:w-full ${
                     activeSection === link.href
                       ? "text-text-primary font-medium"
                       : "text-text-secondary hover:text-text-primary"

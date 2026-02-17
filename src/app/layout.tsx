@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
+import PageWrapper from "@/components/PageWrapper";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -40,9 +41,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body
-        className={`${syne.variable} ${dmSans.variable} antialiased bg-bg-primary text-text-primary font-[family-name:var(--font-dm-sans)]`}
+        className={`${syne.variable} ${dmSans.variable} antialiased bg-bg-primary text-text-primary font-dm-sans`}
       >
-        {children}
+        <PageWrapper>{children}</PageWrapper>
       </body>
     </html>
   );

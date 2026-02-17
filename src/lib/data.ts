@@ -6,16 +6,12 @@ import {
   SiHtml5,
   SiCss3,
   SiNodedotjs,
-  SiExpress,
-  SiPrisma,
   SiPostgresql,
-  SiGraphql,
   SiGit,
   SiDocker,
   SiFigma,
-  SiVercel,
-  SiAmazonwebservices,
-  SiLinux,
+  SiGithub,
+  SiMysql,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 
@@ -25,9 +21,9 @@ export const personalInfo = {
   initials: "CS",
   role: "Desenvolvedor Web",
   bio: "Construo interfaces que as pessoas amam.",
-  email: "contato@caio.dev",
-  github: "https://github.com/caio",
-  linkedin: "https://linkedin.com/in/caio",
+  email: "caiogsilva2005@gmail.com",
+  github: "https://github.com/galaxyhf",
+  linkedin: "https://linkedin.com/in/caio-silva-472498266",
 };
 
 // ======= FRASES TYPEWRITER =======
@@ -155,30 +151,25 @@ export const skillGroups: { title: string; skills: Skill[] }[] = [
     title: "Backend",
     skills: [
       { name: "Node.js", icon: SiNodedotjs },
-      { name: "Express", icon: SiExpress },
-      { name: "Prisma", icon: SiPrisma },
       { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "REST API", icon: SiNodedotjs },
-      { name: "GraphQL", icon: SiGraphql },
+      { name: "MySQL", icon: SiMysql },
     ],
   },
   {
     title: "Ferramentas",
     skills: [
+      { name: "GitHub", icon: SiGithub },
       { name: "Git", icon: SiGit },
       { name: "Docker", icon: SiDocker },
       { name: "Figma", icon: SiFigma },
-      { name: "Vercel", icon: SiVercel },
-      { name: "AWS", icon: SiAmazonwebservices },
-      { name: "Linux", icon: SiLinux },
     ],
   },
 ];
 
 export const expertiseAreas = [
-  { name: "Frontend", percentage: 90 },
-  { name: "Backend", percentage: 75 },
-  { name: "UI/UX", percentage: 65 },
+  { name: "Frontend", percentage: 80 },
+  { name: "Backend", percentage: 50 },
+  { name: "UI/UX", percentage: 75 },
 ];
 
 // ======= NAV LINKS =======

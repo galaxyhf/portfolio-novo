@@ -5,27 +5,51 @@ import { useRef } from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { skillGroups, expertiseAreas } from "@/lib/data";
 
-function SkillTag({ skill, index }: { skill: { name: string; icon: React.ComponentType<{ size?: number; className?: string }> }; index: number }) {
+function SkillTag({
+  skill,
+  index,
+}: {
+  skill: {
+    name: string;
+    icon: React.ComponentType<{ size?: number; className?: string }>;
+  };
+  index: number;
+}) {
   const Icon = skill.icon;
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, amount: 0.3 }}
-      transition={{ delay: index * 0.05 }}
       whileHover={{
-        borderColor: "#F59E0B",
+        borderColor: "#0EA5E9",
         y: -2,
       }}
-      className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-bg-card/20 border border-border/30 transition-all duration-300 cursor-default group"
+      transition={{
+        default: { delay: index * 0.05 },
+        borderColor: { type: "spring", stiffness: 300, damping: 20 },
+        y: { type: "spring", stiffness: 300, damping: 20 },
+      }}
+      className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-bg-card/20 border border-border/30 cursor-default group"
     >
-      <Icon size={18} className="text-accent group-hover:scale-110 transition-transform" />
-      <span className="text-sm font-medium text-text-primary">{skill.name}</span>
+      <Icon
+        size={18}
+        className="text-accent group-hover:scale-110 transition-transform"
+      />
+      <span className="text-sm font-medium text-text-primary">
+        {skill.name}
+      </span>
     </motion.div>
   );
 }
 
-function ProgressBar({ name, percentage }: { name: string; percentage: number }) {
+function ProgressBar({
+  name,
+  percentage,
+}: {
+  name: string;
+  percentage: number;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
 
@@ -57,7 +81,11 @@ export default function Skills() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle number="03" label="skills" title="Skills & Tecnologias" />
+          <SectionTitle
+            number="03"
+            label="skills"
+            title="Skills & Tecnologias"
+          />
         </motion.div>
 
         {/* Grupos de skills */}
@@ -70,7 +98,7 @@ export default function Skills() {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ delay: groupIndex * 0.1 }}
             >
-              <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-text-primary mb-5">
+              <h3 className="font-syne text-xl font-bold text-text-primary mb-5">
                 {group.title}
               </h3>
               <div className="flex flex-wrap gap-2.5">
@@ -90,7 +118,7 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="max-w-xl"
         >
-          <h3 className="font-[family-name:var(--font-syne)] text-xl font-bold text-text-primary mb-6">
+          <h3 className="font-syne text-xl font-bold text-text-primary mb-6">
             Áreas de Expertise
           </h3>
           <div className="space-y-5">

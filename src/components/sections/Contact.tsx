@@ -2,7 +2,13 @@
 
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Linkedin, Github, MapPin, Send, CheckCircle, Loader2 } from "lucide-react";
+import {
+  Mail,
+  Linkedin,
+  Github,
+  CheckCircle,
+  Loader2,
+} from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo } from "@/lib/data";
@@ -17,19 +23,21 @@ const contactLinks = [
   {
     icon: <Linkedin size={20} />,
     label: "LinkedIn",
-    value: "linkedin.com/in/caio",
+    value: "linkedin.com/in/caio-silva-472498266",
     href: personalInfo.linkedin,
   },
   {
     icon: <Github size={20} />,
     label: "GitHub",
-    value: "github.com/caio",
+    value: "github.com/galaxyhf",
     href: personalInfo.github,
   },
 ];
 
 export default function Contact() {
-  const [formState, setFormState] = useState<"idle" | "loading" | "success">("idle");
+  const [formState, setFormState] = useState<"idle" | "loading" | "success">(
+    "idle",
+  );
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -75,8 +83,9 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-text-secondary leading-relaxed mb-8 max-w-md">
-              Estou sempre aberto a novas oportunidades e projetos interessantes. Se
-              você tem uma ideia ou precisa de um desenvolvedor, entre em contato!
+              Estou sempre aberto a novas oportunidades e projetos
+              interessantes. Se você tem uma ideia ou precisa de um
+              desenvolvedor, entre em contato!
             </p>
 
             <div className="space-y-4">
@@ -91,16 +100,26 @@ export default function Contact() {
                   {link.href ? (
                     <a
                       href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      target={
+                        link.href.startsWith("http") ? "_blank" : undefined
+                      }
+                      rel={
+                        link.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className="flex items-center gap-4 p-5 rounded-2xl bg-bg-card/30 backdrop-blur-sm border border-border/50 hover:border-accent/50 hover:bg-bg-card/50 transition-all duration-300 group"
                     >
                       <div className="p-3 rounded-xl bg-accent/10 border border-accent/20 group-hover:bg-accent/20 group-hover:scale-110 transition-all">
                         <span className="text-accent">{link.icon}</span>
                       </div>
                       <div>
-                        <p className="text-xs text-text-secondary mb-0.5">{link.label}</p>
-                        <p className="text-sm text-text-primary font-medium">{link.value}</p>
+                        <p className="text-xs text-text-secondary mb-0.5">
+                          {link.label}
+                        </p>
+                        <p className="text-sm text-text-primary font-medium">
+                          {link.value}
+                        </p>
                       </div>
                     </a>
                   ) : (
@@ -109,8 +128,12 @@ export default function Contact() {
                         <span className="text-accent">{link.icon}</span>
                       </div>
                       <div>
-                        <p className="text-xs text-text-secondary mb-0.5">{link.label}</p>
-                        <p className="text-sm text-text-primary font-medium">{link.value}</p>
+                        <p className="text-xs text-text-secondary mb-0.5">
+                          {link.label}
+                        </p>
+                        <p className="text-sm text-text-primary font-medium">
+                          {link.value}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -129,7 +152,10 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm text-text-secondary mb-1.5">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm text-text-secondary mb-1.5"
+                  >
                     Nome
                   </label>
                   <input
@@ -138,12 +164,17 @@ export default function Contact() {
                     required
                     placeholder="Seu nome"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     className={inputStyles}
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm text-text-secondary mb-1.5">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm text-text-secondary mb-1.5"
+                  >
                     Email
                   </label>
                   <input
@@ -152,14 +183,19 @@ export default function Contact() {
                     required
                     placeholder="seu@email.com"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     className={inputStyles}
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm text-text-secondary mb-1.5">
+                <label
+                  htmlFor="subject"
+                  className="block text-sm text-text-secondary mb-1.5"
+                >
                   Assunto
                 </label>
                 <input
@@ -168,13 +204,18 @@ export default function Contact() {
                   required
                   placeholder="Qual o assunto?"
                   value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, subject: e.target.value })
+                  }
                   className={inputStyles}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm text-text-secondary mb-1.5">
+                <label
+                  htmlFor="message"
+                  className="block text-sm text-text-secondary mb-1.5"
+                >
                   Mensagem
                 </label>
                 <textarea
@@ -183,7 +224,9 @@ export default function Contact() {
                   rows={5}
                   placeholder="Conte-me sobre seu projeto..."
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                   className={`${inputStyles} resize-none`}
                 />
               </div>
@@ -195,13 +238,18 @@ export default function Contact() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 text-sm"
+                    className="flex items-center justify-center gap-2 py-3.5 px-8 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-medium"
                   >
                     <CheckCircle size={18} />
                     Mensagem enviada com sucesso!
                   </motion.div>
                 ) : (
-                  <motion.div key="button" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <motion.div
+                    key="button"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
                     <GlowButton
                       type="submit"
                       variant="primary"
@@ -210,12 +258,12 @@ export default function Contact() {
                       icon={
                         formState === "loading" ? (
                           <Loader2 size={18} className="animate-spin" />
-                        ) : (
-                          <Send size={18} />
-                        )
+                        ) : undefined
                       }
                     >
-                      {formState === "loading" ? "Enviando..." : "Enviar Mensagem"}
+                      {formState === "loading"
+                        ? "Enviando..."
+                        : "Enviar Mensagem"}
                     </GlowButton>
                   </motion.div>
                 )}
