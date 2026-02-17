@@ -2,13 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Mail,
-  Linkedin,
-  Github,
-  CheckCircle,
-  Loader2,
-} from "lucide-react";
+import { Mail, Linkedin, Github, CheckCircle, Loader2 } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo } from "@/lib/data";

@@ -54,7 +54,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[rgba(29,29,29,0.55)] backdrop-blur-2xl border border-border/30 shadow-lg"
+            ? "bg-[rgba(29,29,29,0.55)] backdrop-blur-2xl shadow-lg"
             : "bg-transparent"
         }`}
       >

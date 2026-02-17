@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SiGithub, SiLinkedin } from "react-icons/si";
+import { SiGithub, SiLinkedin, SiInstagram } from "react-icons/si";
 import { personalInfo } from "@/lib/data";
 
 export default function Footer() {
@@ -16,6 +16,11 @@ export default function Footer() {
       url: personalInfo.github,
       label: "GitHub",
     },
+    {
+      icon: SiInstagram,
+      url: personalInfo.instagram,
+      label: "Instagram",
+    },
   ];
 
   const navigationItems = [
@@ -26,10 +31,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-linear-to-b from-transparent to-black/50">
+    <footer className="relative py-6 px-4 sm:px-6 lg:px-8 bg-transparent">
+      {/* Divider */}
+      <div className="h-px bg-linear-to-r from-transparent via-accent/60 to-transparent mb-6" />
       <div className="max-w-7xl mx-auto">
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Left - Personal Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -79,7 +86,7 @@ export default function Footer() {
             <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">
               Social
             </h3>
-            <div className="flex gap-4">
+            <div className="flex gap-4 mb-6">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -98,23 +105,19 @@ export default function Footer() {
                 );
               })}
             </div>
+
+            {/* Copyright */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-xs text-gray-500"
+            >
+              © {new Date().getFullYear()} {personalInfo.name}.
+            </motion.div>
           </motion.div>
         </div>
-
-        {/* Divider */}
-        <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent mb-6" />
-
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center text-sm text-gray-500"
-        >
-          © {new Date().getFullYear()} {personalInfo.name}. Todos os direitos
-          reservados.
-        </motion.div>
       </div>
     </footer>
   );

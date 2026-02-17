@@ -89,7 +89,7 @@ export default function Hero() {
         {/* Nome */}
         <motion.h1
           variants={item}
-          className="font-syne font-bold text-[clamp(4rem,12vw,9rem)] leading-[0.9] mb-6 text-text-primary tracking-tight"
+          className="font-syne font-bold text-[clamp(4rem,10vw,9rem)] leading-[0.9] mb-6 text-text-primary tracking-tight"
         >
           {personalInfo.name}
         </motion.h1>

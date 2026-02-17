@@ -30,8 +30,7 @@ export default function GlowButton({
     "relative inline-flex items-center justify-center px-8 py-3.5 rounded-full font-medium text-sm transition-all duration-300 cursor-pointer";
 
   const variants = {
-    primary:
-      "bg-accent text-bg-primary border border-accent/20",
+    primary: "bg-accent text-bg-primary border border-accent/20",
     outline:
       "border-2 border-accent/40 text-white hover:text-accent bg-transparent transition-colors duration-300",
   };
@@ -62,9 +61,9 @@ export default function GlowButton({
       >
         {variant === "primary" && (
           <motion.div
-            className="absolute -inset-2 rounded-full bg-accent/50 blur-2xl opacity-0 -z-10"
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
+            className="absolute -inset-4 rounded-full bg-accent/30 blur-lg opacity-0 -z-10"
+            animate={{ opacity: isHovered ? 0.6 : 0 }}
+            transition={{ duration: 0.4 }}
           />
         )}
         <span className="relative z-10">{content}</span>
@@ -83,9 +82,9 @@ export default function GlowButton({
     >
       {variant === "primary" && (
         <motion.div
-          className="absolute -inset-6 rounded-full bg-accent/50 blur-2xl opacity-0 -z-10"
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+          className="absolute -inset-4 rounded-full bg-accent/30 blur-lg opacity-0 -z-10"
+          animate={{ opacity: isHovered ? 0.6 : 0 }}
+          transition={{ duration: 0.4 }}
         />
       )}
       <span className="relative z-10">{content}</span>
