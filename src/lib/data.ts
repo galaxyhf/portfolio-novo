@@ -24,6 +24,7 @@ export const personalInfo = {
   email: "caiogsilva2005@gmail.com",
   github: "https://github.com/galaxyhf",
   linkedin: "https://linkedin.com/in/caio-silva-472498266",
+  instagram: "https://www.instagram.com/cai0_gs",
 };
 
 // ======= FRASES TYPEWRITER =======

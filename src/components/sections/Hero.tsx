@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Download } from "lucide-react";
+
 import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo } from "@/lib/data";
 
@@ -130,43 +130,6 @@ export default function Hero() {
           <GlowButton variant="outline" className="min-w-50 text-base">
             Baixar Currículo
           </GlowButton>
-        </motion.div>
-
-        {/* Social Links */}
-        <motion.div
-          variants={item}
-          className="flex items-center gap-6 justify-center"
-        >
-          {[
-            {
-              icon: <Github size={20} />,
-              href: personalInfo.github,
-              label: "GitHub",
-            },
-            {
-              icon: <Linkedin size={20} />,
-              href: personalInfo.linkedin,
-              label: "LinkedIn",
-            },
-            {
-              icon: <Mail size={20} />,
-              href: `mailto:${personalInfo.email}`,
-              label: "Email",
-            },
-          ].map((social) => (
-            <motion.a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-text-secondary hover:text-accent transition-colors duration-300"
-              aria-label={social.label}
-            >
-              {social.icon}
-            </motion.a>
-          ))}
         </motion.div>
       </motion.div>
     </section>
