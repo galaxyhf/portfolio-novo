@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
-import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo, aboutText, aboutHighlights } from "@/lib/data";
 
 export default function About() {
@@ -53,7 +52,7 @@ export default function About() {
                   transition={{ delay: 0.3 + i * 0.08 }}
                   className="flex items-center gap-3 text-text-secondary"
                 >
-                  <CheckCircle size={18} className="text-accent flex-shrink-0" />
+                  <CheckCircle size={18} className="text-accent shrink-0" />
                   {highlight}
                 </motion.li>
               ))}
@@ -64,8 +63,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ delay: 0.5 }}
-            >
-            </motion.div>
+            ></motion.div>
           </div>
 
           {/* Coluna direita - Visual (40%) */}
@@ -84,14 +82,6 @@ export default function About() {
                   alt={`Foto de ${personalInfo.name}`}
                   className="w-52 h-52 rounded-2xl object-cover"
                 />
-              </div>
-
-              {/* Badge disponível */}
-              <div className="flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-bg-primary/80 border border-border/30">
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse-green" />
-                <span className="text-sm text-text-primary font-medium">
-                  Disponível para projetos
-                </span>
               </div>
             </div>
           </motion.div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import PageWrapper from "@/components/PageWrapper";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -43,7 +44,9 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${dmSans.variable} antialiased bg-bg-primary text-text-primary font-dm-sans`}
       >
-        <PageWrapper>{children}</PageWrapper>
+        <LanguageProvider>
+          <PageWrapper>{children}</PageWrapper>
+        </LanguageProvider>
       </body>
     </html>
   );

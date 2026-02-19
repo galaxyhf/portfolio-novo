@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 
 import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo } from "@/lib/data";
-
-const roles = ["Desenvolvedor Web", "Frontend Developer"];
+import { useLanguage } from "@/lib/LanguageContext";
 
 function useTypewriter(
   phrases: string[],
@@ -64,6 +63,8 @@ const item = {
 };
 
 export default function Hero() {
+  const { t } = useLanguage();
+  const roles = [t("desenvolvedor"), t("frontendDeveloper")];
   const typedRole = useTypewriter(roles);
 
   return (
@@ -82,7 +83,7 @@ export default function Hero() {
         {/* Tag acima */}
         <motion.div variants={item} className="mb-4">
           <span className="text-text-secondary text-sm tracking-[0.2em] uppercase font-light">
-            Olá, eu sou
+            {t("olaEuSou")}
           </span>
         </motion.div>
 
@@ -108,11 +109,7 @@ export default function Hero() {
           variants={item}
           className="text-base md:text-lg text-text-secondary max-w-3xl mx-auto mb-12 leading-relaxed"
         >
-          Construo sistemas web end-to-end com{" "}
-          <span className="text-text-primary font-semibold">Next.js</span>,{" "}
-          <span className="text-text-primary font-semibold">TypeScript</span> e{" "}
-          <span className="text-text-primary font-semibold">React</span> — do
-          conceito à entrega em produção.
+          {t("descricaoHero")}
         </motion.p>
 
         {/* Botões */}
@@ -125,10 +122,14 @@ export default function Hero() {
             href="#contact"
             className="min-w-50 text-base"
           >
-            Contate-me
+            {t("contateme")}
           </GlowButton>
-          <GlowButton variant="outline" className="min-w-50 text-base">
-            Baixar Currículo
+          <GlowButton 
+            variant="outline" 
+            href="https://drive.google.com/uc?export=download&id=1XC3dv3KHBhc54yLQYuNVXRZcIaVHfNE1"
+            className="min-w-50 text-base"
+          >
+            {t("baixarCurriculo")}
           </GlowButton>
         </motion.div>
       </motion.div>

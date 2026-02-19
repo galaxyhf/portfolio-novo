@@ -12,6 +12,11 @@ import {
   SiFigma,
   SiGithub,
   SiMysql,
+  SiSupabase,
+  SiExpress,
+  SiPython,
+  SiVite,
+  SiShadcnui,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 
@@ -144,6 +149,7 @@ export const skillGroups: { title: string; skills: Skill[] }[] = [
       { name: "Next.js", icon: SiNextdotjs },
       { name: "TypeScript", icon: SiTypescript },
       { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "Shadcn UI", icon: SiShadcnui },
       { name: "HTML5", icon: SiHtml5 },
       { name: "CSS3", icon: SiCss3 },
     ],
@@ -151,9 +157,12 @@ export const skillGroups: { title: string; skills: Skill[] }[] = [
   {
     title: "Backend",
     skills: [
+      { name: "Python", icon: SiPython },
       { name: "Node.js", icon: SiNodedotjs },
+      { name: "Express", icon: SiExpress },
       { name: "PostgreSQL", icon: SiPostgresql },
       { name: "MySQL", icon: SiMysql },
+      { name: "Supabase", icon: SiSupabase },
     ],
   },
   {
@@ -161,6 +170,7 @@ export const skillGroups: { title: string; skills: Skill[] }[] = [
     skills: [
       { name: "GitHub", icon: SiGithub },
       { name: "Git", icon: SiGit },
+      { name: "Vite", icon: SiVite },
       { name: "Docker", icon: SiDocker },
       { name: "Figma", icon: SiFigma },
     ],
@@ -168,8 +178,8 @@ export const skillGroups: { title: string; skills: Skill[] }[] = [
 ];
 
 export const expertiseAreas = [
-  { name: "Frontend", percentage: 80 },
-  { name: "Backend", percentage: 50 },
+  { name: "Frontend", percentage: 90 },
+  { name: "Backend", percentage: 65 },
   { name: "UI/UX", percentage: 75 },
 ];
 

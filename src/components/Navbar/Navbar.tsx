@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks, personalInfo } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("#hero");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +48,10 @@ export default function Navbar() {
     }
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === "pt" ? "en" : "pt");
+  };
+
   return (
     <>
       <motion.nav
@@ -58,7 +64,7 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className={`max-w-7xl mx-auto px-0 flex items-center justify-between transition-all duration-500 ${
+        <div className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-500 ${
           scrolled ? "h-13" : "h-18 "
         }`}>
           {/* Logo - texto simples */}
@@ -73,36 +79,56 @@ export default function Navbar() {
             {personalInfo.name}
           </a>
 
-          {/* Desktop Nav */}
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                  className={`relative text-sm transition-colors duration-300 pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 hover:after:w-full ${
-                    activeSection === link.href
-                      ? "text-text-primary font-medium"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop Nav + Language */}
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex items-center gap-8">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    className={`relative text-sm transition-colors duration-300 pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 hover:after:w-full ${
+                      activeSection === link.href
+                        ? "text-text-primary font-medium"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    {t(link.label.toLowerCase() as any)}
+                  </a>
+                </li>
+              ))}
+            </ul>
 
-          {/* Mobile Hamburger */}
-          <button
-            className="md:hidden text-text-primary p-2"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Abrir menu"
-          >
-            <Menu size={24} />
-          </button>
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-bg-secondary/40 hover:bg-bg-secondary/60 transition-colors duration-300 text-text-secondary hover:text-text-primary"
+            >
+              <span className="text-sm font-medium">
+                {language === "pt" ? "🇧🇷 PT" : "🇺🇸 EN"}
+              </span>
+            </button>
+          </div>
+
+          {/* Mobile Hamburger & Language */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 px-2 py-1.5 rounded-2xl text-xs font-medium bg-bg-secondary/40 hover:bg-bg-secondary/60 transition-colors duration-300 text-text-secondary hover:text-text-primary"
+            >
+              {language === "pt" ? "🇧🇷 PT" : "🇺🇸 EN"}
+            </button>
+            <button
+              className="text-text-primary p-2"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Abrir menu"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -156,7 +182,7 @@ export default function Navbar() {
                           : "text-text-secondary hover:text-text-primary"
                       }`}
                     >
-                      {link.label}
+                      {t(link.label.toLowerCase() as any)}
                     </a>
                   </motion.li>
                 ))}

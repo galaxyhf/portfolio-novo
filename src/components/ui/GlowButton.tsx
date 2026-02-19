@@ -12,6 +12,7 @@ interface GlowButtonProps {
   className?: string;
   type?: "button" | "submit";
   disabled?: boolean;
+  download?: boolean | string;
 }
 
 export default function GlowButton({
@@ -23,6 +24,7 @@ export default function GlowButton({
   className = "",
   type = "button",
   disabled = false,
+  download = false,
 }: GlowButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -53,10 +55,11 @@ export default function GlowButton({
     return (
       <motion.a
         href={href}
+        download={download}
         whileTap={{ scale: 0.95 }}
         className={`${baseStyles} ${variants[variant]} ${className} group relative`}
-        target={href.startsWith("http") ? "_blank" : undefined}
-        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        target={href.startsWith("http") && !download ? "_blank" : undefined}
+        rel={href.startsWith("http") && !download ? "noopener noreferrer" : undefined}
         {...sharedProps}
       >
         {variant === "primary" && (
