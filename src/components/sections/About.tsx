@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { personalInfo, aboutText, aboutHighlights } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
+
   return (
     <section id="about" className="py-24 md:py-32 bg-bg-secondary">
       <div className="max-w-6xl mx-auto px-6">
@@ -18,7 +21,7 @@ export default function About() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6 }}
             >
-              <SectionTitle number="01" label="sobre" title="Sobre mim" />
+              <SectionTitle number="01" label={t("sobre")} title={t("sobreTitle")} />
             </motion.div>
 
             <div className="space-y-4 mb-8">

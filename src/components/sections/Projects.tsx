@@ -5,10 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { projects, Project } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const categories = ["Todos", "Frontend", "Fullstack", "APIs"] as const;
 
 function ProjectCard({ project }: { project: Project }) {
+  const { t } = useLanguage();
+  
   return (
     <motion.div
       layout
@@ -58,7 +61,7 @@ function ProjectCard({ project }: { project: Project }) {
             className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
           >
             <ExternalLink size={16} />
-            Demo
+            {t("demo")}
           </a>
           <a
             href={project.githubUrl}
@@ -67,7 +70,7 @@ function ProjectCard({ project }: { project: Project }) {
             className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
           >
             <Github size={16} />
-            Código
+            {t("codigo")}
           </a>
         </div>
       </div>
@@ -76,6 +79,7 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function Projects() {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<string>("Todos");
 
   const filteredProjects =
@@ -92,7 +96,7 @@ export default function Projects() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle number="02" label="projetos" title="Projetos" />
+          <SectionTitle number="02" label={t("projetos")} title={t("projetosSecao")} />
         </motion.div>
 
         {/* Filtros */}
@@ -113,7 +117,7 @@ export default function Projects() {
                   : "text-text-secondary bg-transparent border border-border hover:border-text-secondary"
               }`}
             >
-              {cat}
+              {cat === "Todos" ? t("todos") : cat}
               {activeCategory === cat && (
                 <motion.span
                   layoutId="project-filter"

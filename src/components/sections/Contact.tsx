@@ -6,29 +6,32 @@ import { Mail, Linkedin, Github, CheckCircle, Loader2 } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo } from "@/lib/data";
-
-const contactLinks = [
-  {
-    icon: <Mail size={20} />,
-    label: "Email",
-    value: personalInfo.email,
-    href: `mailto:${personalInfo.email}`,
-  },
-  {
-    icon: <Linkedin size={20} />,
-    label: "LinkedIn",
-    value: "linkedin.com/in/caio-silva-472498266",
-    href: personalInfo.linkedin,
-  },
-  {
-    icon: <Github size={20} />,
-    label: "GitHub",
-    value: "github.com/galaxyhf",
-    href: personalInfo.github,
-  },
-];
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Contact() {
+  const { t } = useLanguage();
+
+  const contactLinks = [
+    {
+      icon: <Mail size={20} />,
+      label: t("email"),
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+    },
+    {
+      icon: <Linkedin size={20} />,
+      label: t("linkedin"),
+      value: "linkedin.com/in/caio-silva-472498266",
+      href: personalInfo.linkedin,
+    },
+    {
+      icon: <Github size={20} />,
+      label: t("github"),
+      value: "github.com/galaxyhf",
+      href: personalInfo.github,
+    },
+  ];
+
   const [formState, setFormState] = useState<"idle" | "loading" | "success">(
     "idle",
   );
@@ -65,7 +68,7 @@ export default function Contact() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle number="04" label="contato" title="Contato" />
+          <SectionTitle number="04" label={t("contato")} title={t("contatoSecao")} />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -77,9 +80,7 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-text-secondary leading-relaxed mb-8 max-w-md">
-              Estou sempre aberto a novas oportunidades e projetos
-              interessantes. Se você tem uma ideia ou precisa de um
-              desenvolvedor, entre em contato!
+              {t("contatoDescricao")}
             </p>
 
             <div className="space-y-4">
@@ -150,13 +151,13 @@ export default function Contact() {
                     htmlFor="name"
                     className="block text-sm text-text-secondary mb-1.5"
                   >
-                    Nome
+                    {t("nome")}
                   </label>
                   <input
                     id="name"
                     type="text"
                     required
-                    placeholder="Seu nome"
+                    placeholder={t("seuNome")}
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
@@ -169,13 +170,13 @@ export default function Contact() {
                     htmlFor="email"
                     className="block text-sm text-text-secondary mb-1.5"
                   >
-                    Email
+                    {t("email")}
                   </label>
                   <input
                     id="email"
                     type="email"
                     required
-                    placeholder="seu@email.com"
+                    placeholder={t("seuEmail")}
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
@@ -190,13 +191,13 @@ export default function Contact() {
                   htmlFor="subject"
                   className="block text-sm text-text-secondary mb-1.5"
                 >
-                  Assunto
+                  {t("assunto")}
                 </label>
                 <input
                   id="subject"
                   type="text"
                   required
-                  placeholder="Qual o assunto?"
+                  placeholder={t("qualAssunto")}
                   value={formData.subject}
                   onChange={(e) =>
                     setFormData({ ...formData, subject: e.target.value })
@@ -210,13 +211,13 @@ export default function Contact() {
                   htmlFor="message"
                   className="block text-sm text-text-secondary mb-1.5"
                 >
-                  Mensagem
+                  {t("mensagem")}
                 </label>
                 <textarea
                   id="message"
                   required
                   rows={5}
-                  placeholder="Conte-me sobre seu projeto..."
+                  placeholder={t("conteMeProjeto")}
                   value={formData.message}
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
@@ -235,7 +236,7 @@ export default function Contact() {
                     className="flex items-center justify-center gap-2 py-3.5 px-8 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-medium"
                   >
                     <CheckCircle size={18} />
-                    Mensagem enviada com sucesso!
+                    {t("mensagemEnviada")}
                   </motion.div>
                 ) : (
                   <motion.div
@@ -256,8 +257,8 @@ export default function Contact() {
                       }
                     >
                       {formState === "loading"
-                        ? "Enviando..."
-                        : "Enviar Mensagem"}
+                        ? t("enviando")
+                        : t("enviarMensagem")}
                     </GlowButton>
                   </motion.div>
                 )}

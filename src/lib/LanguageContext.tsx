@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Language, translations } from "@/lib/translations";
 
 interface LanguageContextType {
@@ -10,16 +10,11 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>("pt");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
@@ -28,11 +23,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const t = (key: keyof (typeof translations)[Language]) => {
     return translations[language][key] || key;
   };
-
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>

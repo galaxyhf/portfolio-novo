@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { skillGroups, expertiseAreas } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 function SkillTag({
   skill,
@@ -72,6 +73,8 @@ function ProgressBar({
 }
 
 export default function Skills() {
+  const { t } = useLanguage();
+
   return (
     <section id="skills" className="py-24 md:py-32 bg-bg-secondary">
       <div className="max-w-6xl mx-auto px-6">
@@ -83,8 +86,8 @@ export default function Skills() {
         >
           <SectionTitle
             number="03"
-            label="skills"
-            title="Skills & Tecnologias"
+            label={t("skills")}
+            title={t("skillsTitle")}
           />
         </motion.div>
 
@@ -99,7 +102,7 @@ export default function Skills() {
               transition={{ delay: groupIndex * 0.1 }}
             >
               <h3 className="font-syne text-xl font-bold text-text-primary mb-5">
-                {group.title}
+                {group.title === "Frontend" ? t("frontendSkills") : group.title === "Backend" ? t("backendSkills") : t("ferramentasSkills")}
               </h3>
               <div className="flex flex-wrap gap-2.5">
                 {group.skills.map((skill, i) => (
@@ -119,7 +122,7 @@ export default function Skills() {
           className="max-w-xl"
         >
           <h3 className="font-syne text-xl font-bold text-text-primary mb-6">
-            Áreas de Expertise
+            {t("areasExpertise")}
           </h3>
           <div className="space-y-5">
             {expertiseAreas.map((area) => (

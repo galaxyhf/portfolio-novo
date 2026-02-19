@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { SiGithub, SiLinkedin, SiInstagram } from "react-icons/si";
 import { personalInfo } from "@/lib/data";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   const socialLinks = [
     {
       icon: SiLinkedin,
@@ -24,10 +27,10 @@ export default function Footer() {
   ];
 
   const navigationItems = [
-    { label: "Sobre", href: "#about" },
-    { label: "Projetos", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Contato", href: "#contact" },
+    { label: t("sobre"), href: "#about" },
+    { label: t("projetos"), href: "#projects" },
+    { label: t("skills"), href: "#skills" },
+    { label: t("contato"), href: "#contact" },
   ];
 
   return (
@@ -60,7 +63,7 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">
-              Navegação
+              {t("navegacao")}
             </h3>
             <ul className="space-y-2">
               {navigationItems.map((item) => (
@@ -84,7 +87,7 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">
-              Social
+              {t("social")}
             </h3>
             <div className="flex gap-4 mb-6">
               {socialLinks.map((social) => {
@@ -114,7 +117,7 @@ export default function Footer() {
               viewport={{ once: true }}
               className="text-xs text-gray-500"
             >
-              © {new Date().getFullYear()} {personalInfo.name}.
+              © {new Date().getFullYear()} {personalInfo.name}. {t("direitos")}
             </motion.div>
           </motion.div>
         </div>

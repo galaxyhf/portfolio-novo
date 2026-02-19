@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks, personalInfo } from "@/lib/data";
 import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,7 +26,7 @@ export default function Navbar() {
           }
         });
       },
-      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
+      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" },
     );
 
     window.addEventListener("scroll", handleScroll);
@@ -64,9 +65,11 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-500 ${
-          scrolled ? "h-13" : "h-18 "
-        }`}>
+        <div
+          className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-500 ${
+            scrolled ? "h-13" : "h-18 "
+          }`}
+        >
           {/* Logo - texto simples */}
           <a
             href="#hero"
@@ -96,7 +99,9 @@ export default function Navbar() {
                         : "text-text-secondary hover:text-text-primary"
                     }`}
                   >
-                    {t(link.label.toLowerCase() as any)}
+                    {t(
+                      link.label.toLowerCase() as keyof typeof translations.pt,
+                    )}
                   </a>
                 </li>
               ))}
@@ -182,7 +187,9 @@ export default function Navbar() {
                           : "text-text-secondary hover:text-text-primary"
                       }`}
                     >
-                      {t(link.label.toLowerCase() as any)}
+                      {t(
+                        link.label.toLowerCase() as keyof typeof translations.pt,
+                      )}
                     </a>
                   </motion.li>
                 ))}

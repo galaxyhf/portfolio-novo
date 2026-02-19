@@ -2,6 +2,7 @@ import {
   SiReact,
   SiNextdotjs,
   SiTypescript,
+  SiJavascript,
   SiTailwindcss,
   SiHtml5,
   SiCss3,
@@ -145,13 +146,14 @@ export const skillGroups: { title: string; skills: Skill[] }[] = [
   {
     title: "Frontend",
     skills: [
+      { name: "HTML5", icon: SiHtml5 },
+      { name: "CSS3", icon: SiCss3 },
       { name: "React", icon: SiReact },
       { name: "Next.js", icon: SiNextdotjs },
       { name: "TypeScript", icon: SiTypescript },
+      { name: "JavaScript", icon: SiJavascript },
       { name: "Tailwind CSS", icon: SiTailwindcss },
       { name: "Shadcn UI", icon: SiShadcnui },
-      { name: "HTML5", icon: SiHtml5 },
-      { name: "CSS3", icon: SiCss3 },
     ],
   },
   {
