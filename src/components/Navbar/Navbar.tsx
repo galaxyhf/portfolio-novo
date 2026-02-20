@@ -110,7 +110,7 @@ export default function Navbar() {
             {/* Language Toggle Button */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-bg-secondary/40 hover:bg-bg-secondary/60 transition-colors duration-300 text-text-secondary hover:text-text-primary"
+              className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-2xl bg-bg-secondary/40 hover:bg-bg-secondary/60 transition-colors duration-300 text-text-secondary hover:text-text-primary"
             >
               <span className="text-sm font-medium">
                 {language === "pt" ? "🇧🇷 PT" : "🇺🇸 EN"}

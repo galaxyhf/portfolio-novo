@@ -56,7 +56,7 @@ export const translations = {
     assunto: "Assunto",
     qualAssunto: "Qual o assunto?",
     mensagem: "Mensagem",
-    conteMeProjeto: "Conte-me sobre seu projeto...",
+    conteMeProjeto: "Digite sua mensagem...",
     enviando: "Enviando...",
     enviarMensagem: "Enviar Mensagem",
     mensagemEnviada: "Mensagem enviada com sucesso!",
