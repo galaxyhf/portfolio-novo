@@ -29,7 +29,7 @@ export default function Footer() {
   const navigationItems = [
     { label: t("sobre"), href: "#about" },
     { label: t("projetos"), href: "#projects" },
-    { label: t("skills"), href: "#skills" },
+    { label: t("habilidades"), href: "#habilidades" },
     { label: t("contato"), href: "#contact" },
   ];
 
@@ -51,7 +51,7 @@ export default function Footer() {
               {personalInfo.name}
             </h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              {personalInfo.bio}
+              {t("descricaoFooter")}
             </p>
           </motion.div>
 

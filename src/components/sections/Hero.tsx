@@ -126,7 +126,7 @@ export default function Hero() {
           </GlowButton>
           <GlowButton 
             variant="outline" 
-            href="https://drive.google.com/uc?export=download&id=1XC3dv3KHBhc54yLQYuNVXRZcIaVHfNE1"
+            href="https://drive.google.com/file/d/1XC3dv3KHBhc54yLQYuNVXRZcIaVHfNE1/view?usp=sharing"
             className="min-w-50 text-base"
           >
             {t("baixarCurriculo")}

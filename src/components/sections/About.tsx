@@ -5,6 +5,7 @@ import { CheckCircle } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { personalInfo, aboutText, aboutHighlights } from "@/lib/data";
 import { useLanguage } from "@/lib/LanguageContext";
+import Image from "next/image";
 
 export default function About() {
   const { t } = useLanguage();
@@ -21,7 +22,11 @@ export default function About() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6 }}
             >
-              <SectionTitle number="01" label={t("sobre")} title={t("sobreTitle")} />
+              <SectionTitle
+                number="01"
+                label={t("sobre")}
+                title={t("sobreTitle")}
+              />
             </motion.div>
 
             <div className="space-y-4 mb-8">
@@ -80,11 +85,23 @@ export default function About() {
             <div className="bg-bg-card/30 border border-border/30 rounded-2xl p-8 flex flex-col items-center">
               {/* Foto */}
               <div className="relative mb-6">
-                <img
-                  src="https://picsum.photos/seed/profile/400/400"
+                <Image
+                  src="/Caio.jpg"
                   alt={`Foto de ${personalInfo.name}`}
-                  className="w-52 h-52 rounded-2xl object-cover"
+                  width={320}
+                  height={320}
+                  className="w-70 h-70 rounded-2xl object-cover"
                 />
+              </div>
+
+              {/* Tag com nome e cargo */}
+              <div className="mt-2 text-center bg-bg-card border border-border/30 rounded-xl px-4 py-2 shadow-sm">
+                <span className="font-syne font-semibold text-text-primary block">
+                  Caio Silva
+                </span>
+                <span className="text-xs text-accent font-medium">
+                  {t("desenvolvedor")}
+                </span>
               </div>
             </div>
           </motion.div>

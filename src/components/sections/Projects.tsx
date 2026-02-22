@@ -11,7 +11,7 @@ const categories = ["Todos", "Frontend", "Fullstack", "APIs"] as const;
 
 function ProjectCard({ project }: { project: Project }) {
   const { t } = useLanguage();
-  
+
   return (
     <motion.div
       layout
@@ -96,7 +96,11 @@ export default function Projects() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle number="02" label={t("projetos")} title={t("projetosSecao")} />
+          <SectionTitle
+            number="02"
+            label={t("projetos")}
+            title={t("projetosSecao")}
+          />
         </motion.div>
 
         {/* Filtros */}

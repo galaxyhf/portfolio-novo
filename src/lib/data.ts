@@ -26,7 +26,6 @@ export const personalInfo = {
   name: "Caio Silva",
   initials: "CS",
   role: "Desenvolvedor Web",
-  bio: "Construo interfaces que as pessoas amam.",
   email: "caiogsilva2005@gmail.com",
   github: "https://github.com/galaxyhf",
   linkedin: "https://linkedin.com/in/caio-silva-472498266",
@@ -136,48 +135,49 @@ export const projects: Project[] = [
   },
 ];
 
-// ======= SKILLS =======
-export interface Skill {
+// ======= HABILIDADES =======
+export interface Habilidade {
   name: string;
   icon: IconType;
 }
 
-export const skillGroups: { title: string; skills: Skill[] }[] = [
-  {
-    title: "Frontend",
-    skills: [
-      { name: "HTML5", icon: SiHtml5 },
-      { name: "CSS3", icon: SiCss3 },
-      { name: "React", icon: SiReact },
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Shadcn UI", icon: SiShadcnui },
-    ],
-  },
-  {
-    title: "Backend",
-    skills: [
-      { name: "Python", icon: SiPython },
-      { name: "Node.js", icon: SiNodedotjs },
-      { name: "Express", icon: SiExpress },
-      { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "MySQL", icon: SiMysql },
-      { name: "Supabase", icon: SiSupabase },
-    ],
-  },
-  {
-    title: "Ferramentas",
-    skills: [
-      { name: "GitHub", icon: SiGithub },
-      { name: "Git", icon: SiGit },
-      { name: "Vite", icon: SiVite },
-      { name: "Docker", icon: SiDocker },
-      { name: "Figma", icon: SiFigma },
-    ],
-  },
-];
+export const habilidadeGroups: { title: string; habilidades: Habilidade[] }[] =
+  [
+    {
+      title: "Frontend",
+      habilidades: [
+        { name: "HTML5", icon: SiHtml5 },
+        { name: "CSS3", icon: SiCss3 },
+        { name: "React", icon: SiReact },
+        { name: "Next.js", icon: SiNextdotjs },
+        { name: "TypeScript", icon: SiTypescript },
+        { name: "JavaScript", icon: SiJavascript },
+        { name: "Tailwind CSS", icon: SiTailwindcss },
+        { name: "Shadcn UI", icon: SiShadcnui },
+      ],
+    },
+    {
+      title: "Backend",
+      habilidades: [
+        { name: "Python", icon: SiPython },
+        { name: "Node.js", icon: SiNodedotjs },
+        { name: "Express", icon: SiExpress },
+        { name: "PostgreSQL", icon: SiPostgresql },
+        { name: "MySQL", icon: SiMysql },
+        { name: "Supabase", icon: SiSupabase },
+      ],
+    },
+    {
+      title: "Ferramentas",
+      habilidades: [
+        { name: "GitHub", icon: SiGithub },
+        { name: "Git", icon: SiGit },
+        { name: "Vite", icon: SiVite },
+        { name: "Docker", icon: SiDocker },
+        { name: "Figma", icon: SiFigma },
+      ],
+    },
+  ];
 
 export const expertiseAreas = [
   { name: "Frontend", percentage: 90 },
@@ -190,6 +190,6 @@ export const navLinks = [
   { label: "Início", href: "#hero" },
   { label: "Sobre", href: "#about" },
   { label: "Projetos", href: "#projects" },
-  { label: "Skills", href: "#skills" },
+  { label: "Habilidades", href: "#habilidades" },
   { label: "Contato", href: "#contact" },
 ];

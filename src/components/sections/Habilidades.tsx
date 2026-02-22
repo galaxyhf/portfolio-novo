@@ -3,20 +3,20 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
-import { skillGroups, expertiseAreas } from "@/lib/data";
+import { habilidadeGroups, expertiseAreas } from "@/lib/data";
 import { useLanguage } from "@/lib/LanguageContext";
 
-function SkillTag({
-  skill,
+function HabilidadeTag({
+  habilidade,
   index,
 }: {
-  skill: {
+  habilidade: {
     name: string;
     icon: React.ComponentType<{ size?: number; className?: string }>;
   };
   index: number;
 }) {
-  const Icon = skill.icon;
+  const Icon = habilidade.icon;
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -38,7 +38,7 @@ function SkillTag({
         className="text-accent group-hover:scale-110 transition-transform"
       />
       <span className="text-sm font-medium text-text-primary">
-        {skill.name}
+        {habilidade.name}
       </span>
     </motion.div>
   );
@@ -72,11 +72,11 @@ function ProgressBar({
   );
 }
 
-export default function Skills() {
+export default function Habilidades() {
   const { t } = useLanguage();
 
   return (
-    <section id="skills" className="py-24 md:py-32 bg-bg-secondary">
+    <section id="habilidades" className="py-24 md:py-32 bg-bg-secondary">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -86,14 +86,14 @@ export default function Skills() {
         >
           <SectionTitle
             number="03"
-            label={t("skills")}
-            title={t("skillsTitle")}
+            label={t("habilidades")}
+            title={t("habilidadesTitle")}
           />
         </motion.div>
 
-        {/* Grupos de skills */}
+        {/* Grupos de habilidades */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
-          {skillGroups.map((group, groupIndex) => (
+          {habilidadeGroups.map((group, groupIndex) => (
             <motion.div
               key={group.title}
               initial={{ opacity: 0, y: 20 }}
@@ -102,11 +102,11 @@ export default function Skills() {
               transition={{ delay: groupIndex * 0.1 }}
             >
               <h3 className="font-syne text-xl font-bold text-text-primary mb-5">
-                {group.title === "Frontend" ? t("frontendSkills") : group.title === "Backend" ? t("backendSkills") : t("ferramentasSkills")}
+                {group.title === "Frontend" ? t("frontendHabilidades") : group.title === "Backend" ? t("backendHabilidades") : t("ferramentasHabilidades")}
               </h3>
               <div className="flex flex-wrap gap-2.5">
-                {group.skills.map((skill, i) => (
-                  <SkillTag key={skill.name} skill={skill} index={i} />
+                {group.habilidades.map((habilidade, i) => (
+                  <HabilidadeTag key={habilidade.name} habilidade={habilidade} index={i} />
                 ))}
               </div>
             </motion.div>

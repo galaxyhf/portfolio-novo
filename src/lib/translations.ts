@@ -6,7 +6,7 @@ export const translations = {
     inicio: "Início",
     sobre: "Sobre",
     projetos: "Projetos",
-    skills: "Skills",
+    habilidades: "Habilidades",
     contato: "Contato",
 
     // Hero
@@ -35,12 +35,12 @@ export const translations = {
     demo: "Demo",
     codigo: "Código",
 
-    // Skills
-    skillsSecao: "Skills",
-    skillsTitle: "Skills & Tecnologias",
-    frontendSkills: "Frontend",
-    backendSkills: "Backend",
-    ferramentasSkills: "Ferramentas",
+    // Habilidades
+    habilidadesSecao: "Habilidades",
+    habilidadesTitle: "Habilidades & Tecnologias",
+    frontendHabilidades: "Frontend",
+    backendHabilidades: "Backend",
+    ferramentasHabilidades: "Ferramentas",
     areasExpertise: "Áreas de Expertise",
 
     // Contact
@@ -65,13 +65,15 @@ export const translations = {
     navegacao: "Navegação",
     social: "Social",
     direitos: "Todos os direitos reservados.",
+    descricaoFooter: "Construo interfaces que as pessoas amam",
   },
+
   en: {
     // Navbar
     inicio: "Home",
     sobre: "About",
     projetos: "Projects",
-    skills: "Skills",
+    habilidades: "Skills",
     contato: "Contact",
 
     // Hero
@@ -101,11 +103,11 @@ export const translations = {
     codigo: "Code",
 
     // Skills
-    skillsSecao: "Skills",
-    skillsTitle: "Skills & Technologies",
-    frontendSkills: "Frontend",
-    backendSkills: "Backend",
-    ferramentasSkills: "Tools",
+    habilidadesSecao: "Skills",
+    habilidadesTitle: "Skills & Technologies",
+    frontendHabilidades: "Frontend",
+    backendHabilidades: "Backend",
+    ferramentasHabilidades: "Tools",
     areasExpertise: "Expertise Areas",
 
     // Contact
@@ -130,5 +132,6 @@ export const translations = {
     navegacao: "Navigation",
     social: "Social",
     direitos: "All rights reserved.",
+    descricaoFooter: "I build interfaces that people love",
   },
 };
