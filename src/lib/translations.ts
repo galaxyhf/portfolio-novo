@@ -60,6 +60,7 @@ export const translations = {
     enviando: "Enviando...",
     enviarMensagem: "Enviar Mensagem",
     mensagemEnviada: "Mensagem enviada com sucesso!",
+    mensagemErro: "Erro ao enviar. Tente novamente.",
 
     // Footer
     navegacao: "Navegação",
@@ -127,6 +128,7 @@ export const translations = {
     enviando: "Sending...",
     enviarMensagem: "Send Message",
     mensagemEnviada: "Message sent successfully!",
+    mensagemErro: "Error sending. Please try again.",
 
     // Footer
     navegacao: "Navigation",

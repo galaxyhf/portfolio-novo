@@ -2,7 +2,14 @@
 
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Linkedin, Github, CheckCircle, Loader2 } from "lucide-react";
+import {
+  Mail,
+  Linkedin,
+  Github,
+  CheckCircle,
+  Loader2,
+  XCircle,
+} from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import GlowButton from "@/components/ui/GlowButton";
 import { personalInfo } from "@/lib/data";
@@ -32,9 +39,9 @@ export default function Contact() {
     },
   ];
 
-  const [formState, setFormState] = useState<"idle" | "loading" | "success">(
-    "idle",
-  );
+  const [formState, setFormState] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,15 +49,26 @@ export default function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormState("loading");
-    // Simula envio
-    setTimeout(() => {
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Falha no envio");
+
       setFormState("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setFormState("idle"), 3000);
-    }, 1500);
+      setTimeout(() => setFormState("idle"), 4000);
+    } catch {
+      setFormState("error");
+      setTimeout(() => setFormState("idle"), 4000);
+    }
   };
 
   const inputStyles =
@@ -68,7 +86,11 @@ export default function Contact() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle number="04" label={t("contato")} title={t("contatoSecao")} />
+          <SectionTitle
+            number="04"
+            label={t("contato")}
+            title={t("contatoSecao")}
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -237,6 +259,17 @@ export default function Contact() {
                   >
                     <CheckCircle size={18} />
                     {t("mensagemEnviada")}
+                  </motion.div>
+                ) : formState === "error" ? (
+                  <motion.div
+                    key="error"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center justify-center gap-2 py-3.5 px-8 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-medium"
+                  >
+                    <XCircle size={18} />
+                    {t("mensagemErro")}
                   </motion.div>
                 ) : (
                   <motion.div
