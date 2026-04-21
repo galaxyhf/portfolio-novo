@@ -18,6 +18,13 @@ export default function Navbar() {
       setScrolled(window.scrollY > 20);
     };
 
+    const handleAdminShortcut = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "f") {
+        event.preventDefault();
+        window.location.href = "/admin/login";
+      }
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,6 +37,7 @@ export default function Navbar() {
     );
 
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("keydown", handleAdminShortcut);
 
     // Observe all sections
     const sections = document.querySelectorAll("section[id]");
@@ -37,6 +45,7 @@ export default function Navbar() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("keydown", handleAdminShortcut);
       observer.disconnect();
     };
   }, []);

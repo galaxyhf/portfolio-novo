@@ -2,51 +2,47 @@ export type Language = "pt" | "en";
 
 export const translations = {
   pt: {
-    // Navbar
-    inicio: "Início",
+    inicio: "Inicio",
     sobre: "Sobre",
     projetos: "Projetos",
     habilidades: "Habilidades",
     contato: "Contato",
 
-    // Hero
-    olaEuSou: "Olá, eu sou",
+    olaEuSou: "Ola, eu sou",
     desenvolvedor: "Desenvolvedor Web",
     frontendDeveloper: "Frontend Developer",
     descricaoHero:
-      "Construo sistemas web end-to-end com Next.js, TypeScript e React — do conceito à entrega em produção.",
+      "Construo sistemas web end-to-end com Next.js, TypeScript e React, do conceito a entrega em producao.",
     contateme: "Contate-me",
-    baixarCurriculo: "Baixar Currículo",
+    baixarCurriculo: "Baixar Curriculo",
 
-    // About
     sobreSecao: "Sobre",
     sobreTitle: "Sobre mim",
-    experienciaReact: "Experiência com React, Next.js e TypeScript",
+    experienciaReact: "Experiencia com React, Next.js e TypeScript",
     focoPerformance: "Foco em performance e acessibilidade",
-    mentalidadeProduto: "Mentalidade de produto, não só de código",
+    mentalidadeProduto: "Mentalidade de produto, nao so de codigo",
     sempreAprendendo: "Sempre aprendendo e evoluindo",
 
-    // Projects
     projetosSecao: "Projetos",
     todos: "Todos",
     frontend: "Frontend",
     fullstack: "Fullstack",
     apis: "APIs",
     demo: "Demo",
-    codigo: "Código",
+    codigo: "Codigo",
+    carregandoProjetos: "Carregando projetos...",
+    nenhumProjetoPublicado: "Nenhum projeto publicado no momento.",
 
-    // Habilidades
     habilidadesSecao: "Habilidades",
     habilidadesTitle: "Habilidades & Tecnologias",
     frontendHabilidades: "Frontend",
     backendHabilidades: "Backend",
     ferramentasHabilidades: "Ferramentas",
-    areasExpertise: "Áreas de Expertise",
+    areasExpertise: "Areas de Expertise",
 
-    // Contact
     contatoSecao: "Contato",
     contatoDescricao:
-      "Estou sempre aberto a novas oportunidades e projetos interessantes. Se você tem uma ideia ou precisa de um desenvolvedor, entre em contato!",
+      "Estou sempre aberto a novas oportunidades e projetos interessantes. Se voce tem uma ideia ou precisa de um desenvolvedor, entre em contato!",
     email: "Email",
     linkedin: "LinkedIn",
     github: "GitHub",
@@ -62,31 +58,27 @@ export const translations = {
     mensagemEnviada: "Mensagem enviada com sucesso!",
     mensagemErro: "Erro ao enviar. Tente novamente.",
 
-    // Footer
-    navegacao: "Navegação",
+    navegacao: "Navegacao",
     social: "Social",
     direitos: "Todos os direitos reservados.",
     descricaoFooter: "Construo interfaces que as pessoas amam",
   },
 
   en: {
-    // Navbar
     inicio: "Home",
     sobre: "About",
     projetos: "Projects",
     habilidades: "Skills",
     contato: "Contact",
 
-    // Hero
     olaEuSou: "Hi, I'm",
     desenvolvedor: "Web Developer",
     frontendDeveloper: "Frontend Developer",
     descricaoHero:
-      "I build end-to-end web systems with Next.js, TypeScript and React — from concept to production deployment.",
+      "I build end-to-end web systems with Next.js, TypeScript and React, from concept to production deployment.",
     contateme: "Contact Me",
     baixarCurriculo: "Download Resume",
 
-    // About
     sobreSecao: "About",
     sobreTitle: "About me",
     experienciaReact: "Experience with React, Next.js and TypeScript",
@@ -94,7 +86,6 @@ export const translations = {
     mentalidadeProduto: "Product mindset, not just code",
     sempreAprendendo: "Always learning and evolving",
 
-    // Projects
     projetosSecao: "Projects",
     todos: "All",
     frontend: "Frontend",
@@ -102,8 +93,9 @@ export const translations = {
     apis: "APIs",
     demo: "Demo",
     codigo: "Code",
+    carregandoProjetos: "Loading projects...",
+    nenhumProjetoPublicado: "No published projects yet.",
 
-    // Skills
     habilidadesSecao: "Skills",
     habilidadesTitle: "Skills & Technologies",
     frontendHabilidades: "Frontend",
@@ -111,7 +103,6 @@ export const translations = {
     ferramentasHabilidades: "Tools",
     areasExpertise: "Expertise Areas",
 
-    // Contact
     contatoSecao: "Contact",
     contatoDescricao:
       "I'm always open to new opportunities and interesting projects. If you have an idea or need a developer, get in touch!",
@@ -130,7 +121,6 @@ export const translations = {
     mensagemEnviada: "Message sent successfully!",
     mensagemErro: "Error sending. Please try again.",
 
-    // Footer
     navegacao: "Navigation",
     social: "Social",
     direitos: "All rights reserved.",
