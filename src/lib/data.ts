@@ -39,15 +39,14 @@ export const typewriterPhrases = [
 ];
 
 export const aboutText = [
-  "Sou um desenvolvedor web apaixonado por criar experiencias digitais que fazem a diferenca. Minha jornada comecou ha alguns anos, quando descobri que codigo pode ser uma forma de arte, combinando logica e criatividade para construir algo que as pessoas realmente usam e amam.",
-  "Trabalho principalmente com o ecossistema React e TypeScript, criando interfaces modernas, acessiveis e performaticas. Gosto de entender o problema de ponta a ponta e entregar solucoes que nao sao apenas bonitas, mas tambem escalaveis e bem arquitetadas.",
-  "Quando nao estou codando, voce me encontra explorando novas tecnologias, contribuindo para projetos open source ou aprendendo sobre design e UX para expandir minha visao como desenvolvedor.",
+  "Desenvolvedor Web com foco em React, TypeScript e engenharia de software. Atuo na construção de experiências digitais de alto impacto, equilibrando rigor técnico e conceitos de design para transformar problemas complexos em soluções eficientes e intuitivas.",
+  "Tenho experiência em participar de todas as fases do ciclo de desenvolvimento, desde o planejamento da arquitetura até a implementação de interfaces modernas, acessíveis e de alta performance. Meu trabalho é pautado pela entrega de sistemas que não sejam apenas visualmente polidos, mas também escaláveis, robustos e de fácil manutenção, sempre prezando pelas melhores práticas de código e padrões de projeto.",
 ];
 
 export const aboutHighlights = [
   "Experiencia com React, Next.js e TypeScript",
   "Foco em performance e acessibilidade",
-  "Mentalidade de produto, nao so de codigo",
+  "Mentalidade de produto, não só de código",
   "Sempre aprendendo e evoluindo",
 ];
 
