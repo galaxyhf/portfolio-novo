@@ -19,7 +19,7 @@ export default function Navbar() {
     };
 
     const handleAdminShortcut = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "f") {
+      if (event.ctrlKey && event.altKey && event.code === "KeyF") {
         event.preventDefault();
         window.location.href = "/admin/login";
       }
