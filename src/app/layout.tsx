@@ -32,6 +32,9 @@ export const metadata: Metadata = {
     description:
       "Portfólio de Caio, desenvolvedor web especializado em criar interfaces modernas e performáticas.",
   },
+  icons: {
+    icon: "/Logo CS.svg",
+  },
 };
 
 export default function RootLayout({
