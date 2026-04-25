@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
-import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -9,16 +7,7 @@ interface AdminPanelLayoutProps {
   children: ReactNode;
 }
 
-export default async function AdminPanelLayout({ children }: AdminPanelLayoutProps) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/admin/login");
-  }
-
+export default function AdminPanelLayout({ children }: AdminPanelLayoutProps) {
   return (
     <div className="min-h-dvh bg-bg-primary text-text-primary md:flex">
       <AdminSidebar />
