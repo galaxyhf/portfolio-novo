@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,26 +21,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { TagsInput } from "@/components/admin/TagsInput";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import {
-  uploadProjectImage,
-  uploadProjectImages,
-} from "@/lib/supabase/storage";
-import type { Project, ProjectStatus } from "@/lib/supabase/types";
-
-const projectSchema = z.object({
-  title: z.string().min(2, "Informe um título válido."),
-  slug: z.string().min(2, "Informe um slug válido."),
-  shortDescription: z.string().min(10, "Informe uma descrição curta."),
-  fullDescription: z.string().min(20, "Informe uma descrição completa."),
-  githubUrl: z.string().url("URL inválida.").or(z.literal("")),
-  liveUrl: z.string().url("URL inválida.").or(z.literal("")),
-  featured: z.boolean(),
-  status: z.enum(["draft", "published"]),
-  sortOrder: z.number().int().min(0),
-});
-
-type ProjectFormData = z.infer<typeof projectSchema>;
+import { saveProjectAction } from "@/app/admin/actions";
+import type { Project } from "@/db/schema";
+import { projectFormSchema, type ProjectFormData, type ProjectStatus } from "@/lib/project-schema";
 
 interface ProjectFormProps {
   project?: Project;
@@ -64,7 +46,7 @@ export const ProjectForm = ({ project }: ProjectFormProps) => {
   const [coverFiles, setCoverFiles] = useState<File[]>([]);
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
   const [coverUrls, setCoverUrls] = useState(
-    project?.cover_image ? [project.cover_image] : [],
+    project?.coverImage ? [project.coverImage] : [],
   );
   const [galleryUrls, setGalleryUrls] = useState<string[]>(
     project?.images ?? [],
@@ -75,13 +57,13 @@ export const ProjectForm = ({ project }: ProjectFormProps) => {
     () => ({
       title: project?.title ?? "",
       slug: project?.slug ?? "",
-      shortDescription: project?.short_description ?? "",
-      fullDescription: project?.full_description ?? "",
-      githubUrl: project?.github_url ?? "",
-      liveUrl: project?.live_url ?? "",
+      shortDescription: project?.shortDescription ?? "",
+      fullDescription: project?.fullDescription ?? "",
+      githubUrl: project?.githubUrl ?? "",
+      liveUrl: project?.liveUrl ?? "",
       featured: project?.featured ?? false,
       status: project?.status ?? "draft",
-      sortOrder: project?.sort_order ?? 0,
+      sortOrder: project?.sortOrder ?? 0,
     }),
     [project],
   );
@@ -93,7 +75,7 @@ export const ProjectForm = ({ project }: ProjectFormProps) => {
     watch,
     formState: { errors },
   } = useForm<ProjectFormData>({
-    resolver: zodResolver(projectSchema),
+    resolver: zodResolver(projectFormSchema),
     defaultValues,
   });
 
@@ -111,40 +93,31 @@ export const ProjectForm = ({ project }: ProjectFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const supabase = createSupabaseBrowserClient();
-      const coverImage =
-        coverFiles.length > 0
-          ? await uploadProjectImage(supabase, coverFiles[0], data.slug)
-          : (coverUrls[0] ?? null);
-      const uploadedGallery = await uploadProjectImages(
-        supabase,
-        galleryFiles,
-        data.slug,
-      );
+      const formData = new FormData();
+      formData.set("title", data.title);
+      formData.set("slug", data.slug);
+      formData.set("shortDescription", data.shortDescription);
+      formData.set("fullDescription", data.fullDescription);
+      formData.set("githubUrl", data.githubUrl);
+      formData.set("liveUrl", data.liveUrl);
+      formData.set("featured", String(data.featured));
+      formData.set("status", data.status);
+      formData.set("sortOrder", String(data.sortOrder));
+      formData.set("techs", JSON.stringify(techs));
+      formData.set("coverUrl", coverUrls[0] ?? "");
+      formData.set("galleryUrls", JSON.stringify(galleryUrls));
 
-      const payload = {
-        title: data.title,
-        slug: data.slug,
-        short_description: data.shortDescription,
-        full_description: data.fullDescription,
-        techs,
-        github_url: data.githubUrl || null,
-        live_url: data.liveUrl || null,
-        cover_image: coverImage,
-        images: [...galleryUrls, ...uploadedGallery],
-        featured: data.featured,
-        status: data.status as ProjectStatus,
-        sort_order: data.sortOrder,
-      };
+      if (project) {
+        formData.set("projectId", project.id);
+      }
+      if (coverFiles[0]) {
+        formData.set("coverFile", coverFiles[0]);
+      }
+      galleryFiles.forEach((file) => formData.append("galleryFiles", file));
 
-      const request = project
-        ? supabase.from("projects").update(payload).eq("id", project.id)
-        : supabase.from("projects").insert(payload);
-
-      const { error } = await request;
-
-      if (error) {
-        throw error;
+      const result = await saveProjectAction(formData);
+      if (!result.ok) {
+        throw new Error(result.error);
       }
 
       toast.success(project ? "Projeto atualizado." : "Projeto criado.");

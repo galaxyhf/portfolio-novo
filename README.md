@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfólio — Caio Silva
 
-## Getting Started
+Portfólio profissional desenvolvido para apresentar projetos, competências e canais de contato em uma experiência rápida, responsiva e acessível. O projeto inclui um painel administrativo privado para gerenciamento completo do conteúdo publicado.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Apresentação profissional, projetos em destaque e trajetória técnica.
+- Catálogo de projetos com páginas detalhadas, tecnologias e links externos.
+- Formulário de contato com envio transacional de e-mail.
+- Painel administrativo protegido por autenticação.
+- Cadastro, edição, publicação, ordenação e exclusão de projetos.
+- Upload de capas e galerias para armazenamento de objetos.
+- Estados de carregamento, erro e ausência de conteúdo.
+- Interface responsiva com suporte a diferentes tamanhos de tela.
+
+## Arquitetura
+
+A aplicação utiliza Next.js com App Router, Server Components e Server Actions. Operações sensíveis permanecem no servidor, incluindo acesso ao banco, autenticação, envio de e-mails e gerenciamento de arquivos.
+
+O backend é centralizado no Neon:
+
+- PostgreSQL para persistência dos projetos.
+- Drizzle ORM para schema, consultas e migrações versionadas.
+- Managed Better Auth para identidade e sessões administrativas.
+- Object Storage compatível com S3 para capas e galerias.
+
+O acesso ao painel exige uma sessão válida e um e-mail presente na lista administrativa. Credenciais de banco e armazenamento não são expostas ao navegador.
+
+## Tecnologias
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Neon Postgres
+- Neon Managed Auth
+- Neon Object Storage
+- Drizzle ORM
+- React Hook Form e Zod
+- Resend e React Email
+- Framer Motion
+
+## Estrutura
+
+```text
+src/
+├── app/             Rotas públicas, painel administrativo e APIs
+├── components/      Componentes de interface e formulários
+├── db/              Schema e cliente PostgreSQL
+├── emails/          Templates de e-mail transacional
+└── lib/             Regras de negócio e integrações de servidor
+
+drizzle/             Migrações versionadas do banco
+neon.ts              Definição dos recursos gerenciados no Neon
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Qualidade
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O projeto possui validação estática de tipos, análise com ESLint, migrações versionadas e separação entre responsabilidades de interface, domínio e infraestrutura.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Licença
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Projeto pessoal. Todos os direitos reservados.

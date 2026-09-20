@@ -13,7 +13,6 @@ import {
   SiFigma,
   SiGithub,
   SiMysql,
-  SiSupabase,
   SiExpress,
   SiPython,
   SiVite,
@@ -77,7 +76,7 @@ export const habilidadeGroups: { title: string; habilidades: Habilidade[] }[] = 
       { name: "Express", icon: SiExpress },
       { name: "PostgreSQL", icon: SiPostgresql },
       { name: "MySQL", icon: SiMysql },
-      { name: "Supabase", icon: SiSupabase },
+      { name: "Neon", icon: SiPostgresql },
     ],
   },
   {

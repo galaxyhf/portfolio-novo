@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { deleteProjectAction } from "@/app/admin/actions";
 
 interface DeleteProjectButtonProps {
   projectId: string;
@@ -25,11 +25,9 @@ export const DeleteProjectButton = ({ projectId }: DeleteProjectButtonProps) => 
     setIsDeleting(true);
 
     try {
-      const supabase = createSupabaseBrowserClient();
-      const { error } = await supabase.from("projects").delete().eq("id", projectId);
-
-      if (error) {
-        throw error;
+      const result = await deleteProjectAction(projectId);
+      if (!result.ok) {
+        throw new Error(result.error);
       }
 
       toast.success("Projeto excluído.");

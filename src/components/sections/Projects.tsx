@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { useLanguage } from "@/lib/LanguageContext";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import type { Project } from "@/lib/supabase/types";
+import type { Project } from "@/db/schema";
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const { t } = useLanguage();
@@ -21,7 +19,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
     >
       <div className="relative aspect-video overflow-hidden bg-bg-secondary">
         <Image
-          src={project.cover_image || "/vercel.svg"}
+          src={project.coverImage || "/vercel.svg"}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -46,13 +44,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
           {project.title}
         </h3>
         <p className="mb-5 flex-1 line-clamp-2 text-sm leading-relaxed text-text-secondary">
-          {project.short_description}
+          {project.shortDescription}
         </p>
 
         <div className="flex items-center gap-4">
-          {project.live_url && (
+          {project.liveUrl && (
             <a
-              href={project.live_url}
+              href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-accent"
@@ -61,9 +59,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
               {t("demo")}
             </a>
           )}
-          {project.github_url && (
+          {project.githubUrl && (
             <a
-              href={project.github_url}
+              href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-accent"
@@ -78,36 +76,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
   );
 };
 
-export default function Projects() {
+export default function Projects({ projects }: { projects: Project[] }) {
   const { t } = useLanguage();
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        const supabase = createSupabaseBrowserClient();
-        const { data, error } = await supabase
-          .from("projects")
-          .select("*")
-          .eq("status", "published")
-          .order("sort_order", { ascending: true })
-          .order("created_at", { ascending: false });
-
-        if (error) {
-          throw error;
-        }
-
-        setProjects(data ?? []);
-      } catch {
-        setProjects([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadProjects();
-  }, []);
 
   return (
     <section id="projects" className="py-24 md:py-32">
@@ -128,16 +98,9 @@ export default function Projects() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {isLoading && (
-            <div className="col-span-full rounded-lg border border-border/30 bg-bg-card/20 p-8 text-center text-text-secondary">
-              {t("carregandoProjetos")}
-            </div>
-          )}
+          {projects.map((project) => <ProjectCard key={project.id} project={project} />)}
 
-          {!isLoading &&
-            projects.map((project) => <ProjectCard key={project.id} project={project} />)}
-
-          {!isLoading && projects.length === 0 && (
+          {projects.length === 0 && (
             <div className="col-span-full rounded-lg border border-border/30 bg-bg-card/20 p-8 text-center text-text-secondary">
               {t("nenhumProjetoPublicado")}
             </div>

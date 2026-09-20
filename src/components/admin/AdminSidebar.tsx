@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FolderKanban, LayoutDashboard, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { authClient } from "@/lib/neon/auth-client";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -25,8 +25,7 @@ export const AdminSidebar = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const supabase = createSupabaseBrowserClient();
-    await supabase.auth.signOut();
+    await authClient.signOut();
     router.push("/admin/login");
     router.refresh();
   };

@@ -2,7 +2,6 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -12,32 +11,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/neon/auth-client";
 
-export const LoginForm = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+export const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [wasSent, setWasSent] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await authClient.signIn.email({
+      const { error } = await authClient.requestPasswordReset({
         email,
-        password,
+        redirectTo: `${window.location.origin}/admin/reset-password`,
       });
 
       if (error) {
         throw error;
       }
 
-      toast.success("Login realizado.");
-      router.push(searchParams.get("next") ?? "/admin/dashboard");
-      router.refresh();
+      setWasSent(true);
+      toast.success("Confira seu e-mail para definir uma nova senha.");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Erro ao entrar.";
+      const message = error instanceof Error ? error.message : "Não foi possível enviar o e-mail.";
       toast.error(message);
     } finally {
       setIsLoading(false);
@@ -48,8 +44,10 @@ export const LoginForm = () => {
     <Card className="w-full max-w-md">
       <form className="space-y-5" onSubmit={handleSubmit}>
         <div>
-          <p className="font-syne text-2xl font-bold text-text-primary">Acessar painel</p>
-          <p className="mt-2 text-sm text-text-secondary">Entre com sua conta administrativa.</p>
+          <p className="font-syne text-2xl font-bold text-text-primary">Definir nova senha</p>
+          <p className="mt-2 text-sm text-text-secondary">
+            Informe o e-mail administrativo para receber um link seguro.
+          </p>
         </div>
 
         <div className="space-y-2">
@@ -60,33 +58,22 @@ export const LoginForm = () => {
             value={email}
             autoComplete="email"
             required
+            disabled={wasSent}
             onChange={(event) => setEmail(event.target.value)}
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
-          <Input
-            id="password"
-            type="password"
-            value={password}
-            autoComplete="current-password"
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-
-        <Button type="submit" className="w-full gap-2" disabled={isLoading}>
+        <Button type="submit" className="w-full gap-2" disabled={isLoading || wasSent}>
           {isLoading && <Loader2 size={16} className="animate-spin" />}
-          Entrar
+          {wasSent ? "E-mail enviado" : "Enviar link"}
         </Button>
 
         <div className="text-center">
           <Link
-            href="/admin/forgot-password"
+            href="/admin/login"
             className="text-sm text-text-secondary underline-offset-4 transition-colors hover:text-text-primary hover:underline"
           >
-            Esqueci minha senha
+            Voltar para o login
           </Link>
         </div>
       </form>

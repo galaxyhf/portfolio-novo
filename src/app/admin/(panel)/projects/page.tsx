@@ -5,21 +5,12 @@ import { DeleteProjectButton } from "@/components/admin/DeleteProjectButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getAllProjects } from "@/lib/projects";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminProjectsPage() {
-  const supabase = await createSupabaseServerClient();
-  const { data: projects, error } = await supabase
-    .from("projects")
-    .select("*")
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  const projects = await getAllProjects();
 
   return (
     <div className="space-y-8">
@@ -49,7 +40,7 @@ export default async function AdminProjectsPage() {
               </tr>
             </thead>
             <tbody>
-              {projects?.map((project) => (
+              {projects.map((project) => (
                 <tr key={project.id} className="border-b border-border last:border-0">
                   <td className="px-4 py-4">
                     <p className="font-semibold text-text-primary">{project.title}</p>
@@ -65,7 +56,7 @@ export default async function AdminProjectsPage() {
                       {project.featured ? "Sim" : "Não"}
                     </Badge>
                   </td>
-                  <td className="px-4 py-4 text-text-secondary">{project.sort_order}</td>
+                  <td className="px-4 py-4 text-text-secondary">{project.sortOrder}</td>
                   <td className="px-4 py-4">
                     <div className="flex justify-end gap-2">
                       <Link
@@ -81,7 +72,7 @@ export default async function AdminProjectsPage() {
                 </tr>
               ))}
 
-              {projects?.length === 0 && (
+              {projects.length === 0 && (
                 <tr>
                   <td className="px-4 py-10 text-center text-text-secondary" colSpan={5}>
                     Nenhum projeto cadastrado.

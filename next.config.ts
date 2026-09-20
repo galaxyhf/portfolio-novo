@@ -1,15 +1,15 @@
 import type { NextConfig } from "next";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseHostname = supabaseUrl ? new URL(supabaseUrl).hostname : undefined;
+const storageUrl = process.env.NEON_STORAGE_PUBLIC_URL ?? process.env.AWS_ENDPOINT_URL_S3;
+const storageHostname = storageUrl ? new URL(storageUrl).hostname : undefined;
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: supabaseHostname ?? "*.supabase.co",
-        pathname: "/storage/v1/object/public/**",
+        hostname: storageHostname ?? "*.neon.tech",
+        pathname: "/**",
       },
     ],
   },

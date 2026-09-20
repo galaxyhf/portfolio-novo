@@ -42,7 +42,7 @@ export const TagsInput = ({
       <div className="flex gap-2">
         <Input
           value={value}
-          placeholder="React, Next.js, Supabase..."
+          placeholder="React, Next.js, Neon..."
           onChange={(event) => onValueChange(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === "Enter") {

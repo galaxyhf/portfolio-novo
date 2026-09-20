@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { ProjectForm } from "@/components/admin/ProjectForm";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getProjectById } from "@/lib/projects";
 
 export const dynamic = "force-dynamic";
 
@@ -13,10 +13,9 @@ interface EditProjectPageProps {
 
 export default async function EditProjectPage({ params }: EditProjectPageProps) {
   const { id } = await params;
-  const supabase = await createSupabaseServerClient();
-  const { data: project, error } = await supabase.from("projects").select("*").eq("id", id).single();
+  const project = await getProjectById(id);
 
-  if (error || !project) {
+  if (!project) {
     notFound();
   }
 

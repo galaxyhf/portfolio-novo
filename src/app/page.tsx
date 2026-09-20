@@ -5,15 +5,20 @@ import Projects from "@/components/sections/Projects";
 import Habilidades from "@/components/sections/Habilidades";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import { getPublishedProjects } from "@/lib/projects";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const projects = await getPublishedProjects();
+
   return (
     <>
       <Navbar />
       <main>
         <Hero />
         <About />
-        <Projects />
+        <Projects projects={projects} />
         <Habilidades />
         <Contact />
       </main>
