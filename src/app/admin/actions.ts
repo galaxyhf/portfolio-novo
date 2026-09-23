@@ -6,9 +6,16 @@ import { db } from "@/db";
 import { projects } from "@/db/schema";
 import { requireAdminSession } from "@/lib/neon/auth";
 import { projectFormSchema } from "@/lib/project-schema";
-import { getStoragePublicBaseUrl, uploadProjectImage, uploadProjectImages } from "@/lib/neon/storage";
+import {
+  createProjectImageUpload,
+  getStoragePublicBaseUrl,
+  type ProjectImageUpload,
+} from "@/lib/neon/storage";
 
 type ActionResult = { ok: true } | { ok: false; error: string };
+type ImageUploadActionResult =
+  | ({ ok: true } & ProjectImageUpload)
+  | { ok: false; error: string };
 
 const parseStringArray = (value: FormDataEntryValue | null, field: string) => {
   try {
@@ -55,19 +62,9 @@ export const saveProjectAction = async (formData: FormData): Promise<ActionResul
       return { ok: false, error: "Uma das imagens existentes não pertence ao storage do projeto." };
     }
 
-    const coverFile = formData.get("coverFile");
-    const galleryFiles = formData
-      .getAll("galleryFiles")
-      .filter((entry): entry is File => entry instanceof File && entry.size > 0);
-    if (galleryFiles.length > 12) {
-      return { ok: false, error: "Envie no máximo 12 imagens por vez." };
+    if (galleryUrls.length > 12) {
+      return { ok: false, error: "A galeria pode ter no máximo 12 imagens." };
     }
-
-    const uploadedCover =
-      coverFile instanceof File && coverFile.size > 0
-        ? await uploadProjectImage(coverFile, parsed.data.slug)
-        : coverUrl;
-    const uploadedGallery = await uploadProjectImages(galleryFiles, parsed.data.slug);
 
     const values = {
       title: parsed.data.title,
@@ -77,8 +74,8 @@ export const saveProjectAction = async (formData: FormData): Promise<ActionResul
       techs,
       githubUrl: parsed.data.githubUrl || null,
       liveUrl: parsed.data.liveUrl || null,
-      coverImage: uploadedCover,
-      images: [...galleryUrls, ...uploadedGallery],
+      coverImage: coverUrl,
+      images: galleryUrls,
       featured: parsed.data.featured,
       status: parsed.data.status,
       sortOrder: parsed.data.sortOrder,
@@ -99,6 +96,29 @@ export const saveProjectAction = async (formData: FormData): Promise<ActionResul
     return {
       ok: false,
       error: error instanceof Error ? error.message : "Erro ao salvar projeto.",
+    };
+  }
+};
+
+export const createProjectImageUploadAction = async (
+  fileName: string,
+  contentType: string,
+  size: number,
+  projectSlug: string,
+): Promise<ImageUploadActionResult> => {
+  try {
+    await requireAdminSession();
+
+    if (!projectSlug) {
+      return { ok: false, error: "Informe um slug válido antes de enviar imagens." };
+    }
+
+    const result = await createProjectImageUpload(fileName, contentType, size, projectSlug);
+    return { ok: true, ...result };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Erro ao preparar o envio da imagem.",
     };
   }
 };

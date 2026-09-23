@@ -1,10 +1,17 @@
 import "server-only";
 
 import { Files } from "files-sdk";
+import type { SignedUpload } from "files-sdk";
 import { neon } from "files-sdk/neon";
 
 const bucket = "project-images";
 const maxImageSize = 10 * 1024 * 1024;
+const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+
+export interface ProjectImageUpload {
+  upload: SignedUpload;
+  publicUrl: string;
+}
 
 export const getStoragePublicBaseUrl = () => {
   if (process.env.NEON_STORAGE_PUBLIC_URL) {
@@ -27,32 +34,41 @@ const getFiles = () =>
     }),
   });
 
-const getFileExtension = (file: File) => {
-  const extension = file.name.split(".").pop()?.toLowerCase();
+const getFileNameExtension = (fileName: string) => {
+  const extension = fileName.split(".").pop()?.toLowerCase();
   return extension && /^[a-z0-9]+$/.test(extension) ? extension : "webp";
 };
 
-export const uploadProjectImage = async (file: File, projectSlug: string) => {
-  const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
-  if (!allowedTypes.has(file.type)) {
+const validateProjectImage = (contentType: string, size: number) => {
+  if (!allowedImageTypes.has(contentType)) {
     throw new Error("Envie uma imagem JPG, PNG, WebP ou GIF.");
   }
 
-  if (file.size > maxImageSize) {
+  if (!Number.isFinite(size) || size <= 0 || size > maxImageSize) {
     throw new Error("A imagem deve ter no máximo 10 MB.");
   }
-
-  const safeSlug = projectSlug.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
-  const key = `${safeSlug}/${crypto.randomUUID()}.${getFileExtension(file)}`;
-  const files = getFiles();
-
-  await files.upload(key, file, {
-    contentType: file.type,
-    cacheControl: "public, max-age=31536000, immutable",
-  });
-
-  return files.url(key);
 };
 
-export const uploadProjectImages = (files: File[], projectSlug: string) =>
-  Promise.all(files.map((file) => uploadProjectImage(file, projectSlug)));
+export const createProjectImageUpload = async (
+  fileName: string,
+  contentType: string,
+  size: number,
+  projectSlug: string,
+): Promise<ProjectImageUpload> => {
+  validateProjectImage(contentType, size);
+
+  const safeSlug = projectSlug.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
+  const key = `${safeSlug}/${crypto.randomUUID()}.${getFileNameExtension(fileName)}`;
+  const files = getFiles();
+
+  const upload = await files.signedUploadUrl(key, {
+    expiresIn: 5 * 60,
+    contentType,
+    maxSize: maxImageSize,
+  });
+
+  return {
+    upload,
+    publicUrl: await files.url(key),
+  };
+};

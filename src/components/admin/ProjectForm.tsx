@@ -21,7 +21,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { TagsInput } from "@/components/admin/TagsInput";
-import { saveProjectAction } from "@/app/admin/actions";
+import { createProjectImageUploadAction, saveProjectAction } from "@/app/admin/actions";
 import type { Project } from "@/db/schema";
 import { projectFormSchema, type ProjectFormData, type ProjectStatus } from "@/lib/project-schema";
 
@@ -37,6 +37,39 @@ const createSlug = (value: string) =>
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+
+const uploadProjectImage = async (file: File, projectSlug: string) => {
+  const result = await createProjectImageUploadAction(
+    file.name,
+    file.type,
+    file.size,
+    projectSlug,
+  );
+
+  if (!result.ok) {
+    throw new Error(result.error);
+  }
+
+  let response: Response;
+  if (result.upload.method === "POST") {
+    const uploadData = new FormData();
+    Object.entries(result.upload.fields).forEach(([key, value]) => uploadData.set(key, value));
+    uploadData.set("file", file);
+    response = await fetch(result.upload.url, { method: "POST", body: uploadData });
+  } else {
+    response = await fetch(result.upload.url, {
+      method: "PUT",
+      headers: result.upload.headers,
+      body: file,
+    });
+  }
+
+  if (!response.ok) {
+    throw new Error("Não foi possível enviar a imagem para o storage.");
+  }
+
+  return result.publicUrl;
+};
 
 export const ProjectForm = ({ project }: ProjectFormProps) => {
   const router = useRouter();
@@ -90,9 +123,21 @@ export const ProjectForm = ({ project }: ProjectFormProps) => {
       return;
     }
 
+    if (galleryUrls.length + galleryFiles.length > 12) {
+      toast.error("A galeria pode ter no máximo 12 imagens.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      const [uploadedCover, uploadedGallery] = await Promise.all([
+        coverFiles[0]
+          ? uploadProjectImage(coverFiles[0], data.slug)
+          : Promise.resolve(coverUrls[0] ?? ""),
+        Promise.all(galleryFiles.map((file) => uploadProjectImage(file, data.slug))),
+      ]);
+
       const formData = new FormData();
       formData.set("title", data.title);
       formData.set("slug", data.slug);
@@ -104,16 +149,12 @@ export const ProjectForm = ({ project }: ProjectFormProps) => {
       formData.set("status", data.status);
       formData.set("sortOrder", String(data.sortOrder));
       formData.set("techs", JSON.stringify(techs));
-      formData.set("coverUrl", coverUrls[0] ?? "");
-      formData.set("galleryUrls", JSON.stringify(galleryUrls));
+      formData.set("coverUrl", uploadedCover);
+      formData.set("galleryUrls", JSON.stringify([...galleryUrls, ...uploadedGallery]));
 
       if (project) {
         formData.set("projectId", project.id);
       }
-      if (coverFiles[0]) {
-        formData.set("coverFile", coverFiles[0]);
-      }
-      galleryFiles.forEach((file) => formData.append("galleryFiles", file));
 
       const result = await saveProjectAction(formData);
       if (!result.ok) {
